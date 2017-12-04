@@ -8,22 +8,30 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UITableViewDataSource {
 
     @IBOutlet weak var label: UILabel!
     @IBOutlet weak var ueLabel: UILabel!
+    @IBOutlet weak var table: UITableView!
     
     var count: Float = 0.0
     var timer: Timer = Timer()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        table.dataSource = self
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 10
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell")
+        
+        cell?.textLabel?.text = "testing"
+        
+        return cell!
     }
 
     @IBAction func start(_ sender: Any) {
@@ -46,12 +54,19 @@ class ViewController: UIViewController {
         }
     }
     
+    @IBAction func lap(_ sender: Any) {
+        if timer.isValid{
+            
+        }
+    }
+    
     @IBAction func reset(_ sender: Any) {
         if timer.isValid{
             count = 0.0
             
         }
     }
+    
     func up(){
         count = count + 0.01
         label.text = String(format: "%.2f", count)
