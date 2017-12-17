@@ -17,7 +17,10 @@ class ViewController: UIViewController, UITableViewDataSource {
     var count: Float = 0.0
     var timer: Timer = Timer()
     var countTimerArray = [Float]()
+    var fakeArray = [Float]()
     var index = 0
+    var cell: UITableViewCell!
+//    var n = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,12 +32,16 @@ class ViewController: UIViewController, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell")
+        cell = tableView.dequeueReusableCell(withIdentifier: "Cell")
         
         cell?.textLabel?.text = String(countTimerArray[indexPath.row])
         
         return cell!
     }
+    
+//    func put(indexPath: IndexPath){
+//        cell?.textLabel?.text = String(countTimerArray[indexPath.row])
+//    }
 
     @IBAction func start(_ sender: Any) {
         if !timer.isValid{
@@ -57,15 +64,28 @@ class ViewController: UIViewController, UITableViewDataSource {
     }
     
     @IBAction func lap(_ sender: Any) {
+        
         if timer.isValid{
             countTimerArray.append(count)
+            fakeArray.append(count)
+//            if n >= 1{
+//                reset()
+//            }
+            table.reloadData()
+//            n = n + 1
         }
     }
+    
+//    func reset(){
+//        print("here")
+//        for i in 0...fakeArray.count{
+//            countTimerArray[countTimerArray.count - i] = fakeArray[i]
+//        }
+//    }
     
     @IBAction func reset(_ sender: Any) {
         if timer.isValid{
             count = 0.0
-            
         }
     }
     
