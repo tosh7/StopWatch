@@ -12,10 +12,12 @@ class ViewController: UIViewController, UITableViewDataSource {
 
     @IBOutlet weak var label: UILabel!
     @IBOutlet weak var ueLabel: UILabel!
-    @IBOutlet weak var table: UITableView!
+    @IBOutlet var table: UITableView!
     
     var count: Float = 0.0
     var timer: Timer = Timer()
+    var countTimerArray = [Float]()
+    var index = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,13 +25,13 @@ class ViewController: UIViewController, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return countTimerArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell")
         
-        cell?.textLabel?.text = "testing"
+        cell?.textLabel?.text = String(countTimerArray[indexPath.row])
         
         return cell!
     }
@@ -56,7 +58,7 @@ class ViewController: UIViewController, UITableViewDataSource {
     
     @IBAction func lap(_ sender: Any) {
         if timer.isValid{
-            
+            countTimerArray.append(count)
         }
     }
     
